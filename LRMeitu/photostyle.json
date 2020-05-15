@@ -1,0 +1,30 @@
+{
+    "style":[
+        {
+            "unselectStyle":"mubanunselect1",
+            "selectStyle":"mubanselect1",
+            "style":0
+        },{
+            "unselectStyle":"mubanunselect2",
+            "selectStyle":"mubanselect2",
+            "style":1
+        },{
+            "unselectStyle":"mubanunselect3",
+            "selectStyle":"mubanselect3",
+            "style":2
+        },{
+            "unselectStyle":"mubanunselect4",
+            "selectStyle":"mubanselect4",
+            "style":3
+        },{
+            "unselectStyle":"mubanunselect5",
+            "selectStyle":"mubanselect5",
+            "style":4
+        },{
+            "unselectStyle":"mubanunselect6",
+            "selectStyle":"mubanselect6",
+            "style":5
+        },
+    
+    ]
+}
