@@ -10,6 +10,7 @@
 #import <CHTCollectionViewWaterfallLayout.h>
 #import "MTEditEmotionViewCell.h"
 #import "MTDirectionButton.h"
+#import "MTProductListModel.h"
 @interface MTEditEmotionView()<UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic,strong) UICollectionView *collectionView;
 @end
@@ -24,7 +25,7 @@
            //  moreBtn.backgroundColor = [UIColor yellowColor];
              [moreBtn setImage:[UIImage imageNamed:@"more_emotion"] forState:UIControlStateNormal];
              [moreBtn.titleLabel setFont:[UIFont mt_lightFontOfSize:10]];
-             [moreBtn setTitle:@"更多產品圖" forState:UIControlStateNormal];
+             [moreBtn setTitle:@"更多产品图" forState:UIControlStateNormal];
         
         [moreBtn addTarget:self action:@selector(addProduct) forControlEvents:UIControlEventTouchUpInside];
         [moreBtn setTitleColor:[UIColor mt_colorWithHexString:@"#1F1F1F"] forState:UIControlStateNormal];
@@ -97,17 +98,21 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     MTEditEmotionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MTEditEmotionViewCell" forIndexPath:indexPath];
-    UIImage *image = self.productArray[indexPath.item];
-    cell.productImageView.image = image;
+    MTProductListModel *model = self.productArray[indexPath.item];
+  
+//    NSURL *imgurl = IMAGE_URL(model.prodimg);
+//    [cell.productImageView sd_setImageWithURL:imgurl];
+    cell.productImageView.image = model.showImage;
     return cell;
     
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-     UIImage *image = self.productArray[indexPath.item];
-
+    
+    MTEditEmotionViewCell *cell = (MTEditEmotionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
     if (self.emotionViewDelegate && [self.emotionViewDelegate respondsToSelector:@selector(addOneEmotionWithImage:)]) {
-        [self.emotionViewDelegate addOneEmotionWithImage:image];
+        [self.emotionViewDelegate addOneEmotionWithImage:cell.productImageView.image];
     }
 }
 

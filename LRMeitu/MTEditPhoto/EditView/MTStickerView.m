@@ -21,7 +21,7 @@
           self.clipsToBounds = YES;
         _screenScale = 1.f;
           _minScale = .2f;
-          _maxScale = 3.f;
+          _maxScale = 13.f;
       
     }
     return self;

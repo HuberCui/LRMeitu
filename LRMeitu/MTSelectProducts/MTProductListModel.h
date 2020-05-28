@@ -17,8 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MTProductListModel : NSObject
 @property (nonatomic,assign) int no;
 
-@property (nonatomic,strong) NSString *prodimg;
+//@property (nonatomic,strong) NSString *prodimg;
 @property (nonatomic,assign) BOOL isSelect;
+@property (nonatomic,strong) UIImage *showImage;
 @end
 
 NS_ASSUME_NONNULL_END

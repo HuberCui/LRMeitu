@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MTEditEdgesViewDelegate <NSObject>
 -(void)addEdgeWithImage:(UIImage *)edgeImage;
+-(void)addMoreEdges;
 @end
 @protocol MTEditBorderViewDelegate <NSObject>
 -(void)addBorderWithSelectColor:(NSString *)color;
@@ -43,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray *colorArray;
 
 @property (nonatomic,strong) NSMutableArray *productArray;
+@property (nonatomic,strong) NSMutableArray *edgesArray;
 
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) UIView *downView;

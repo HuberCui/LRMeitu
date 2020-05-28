@@ -22,7 +22,7 @@
     [self.view addSubview:imageView];
     
     UILabel *labe = [UILabel new];
-    labe.text = @"來新增一張組圖吧!";
+    labe.text = @"来新增一张组图吧!";
     labe.font = [UIFont mt_lightFontOfSize:16];
     labe.textColor = [UIColor mt_colorWithHexString:@"6b6b6b"];
     [self.view addSubview:labe];

@@ -20,7 +20,6 @@
 		6F47790B240A6ACF00F1A76E /* MTSelectPhotoCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47790A240A6ACF00F1A76E /* MTSelectPhotoCollectView.m */; };
 		6F477910240A6CF300F1A76E /* MTSelectPhotoStyleCollectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47790F240A6CF300F1A76E /* MTSelectPhotoStyleCollectView.m */; };
 		6F477917240A821600F1A76E /* MTSelectPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F477915240A821600F1A76E /* MTSelectPhotoCell.m */; };
-		6F477918240A821600F1A76E /* MTSelectPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F477916240A821600F1A76E /* MTSelectPhotoCell.xib */; };
 		6F47791D240A8BDF00F1A76E /* MTProductListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47791B240A8BDF00F1A76E /* MTProductListCell.m */; };
 		6F47791E240A8BDF00F1A76E /* MTProductListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F47791C240A8BDF00F1A76E /* MTProductListCell.xib */; };
 		6F477921240A8C3B00F1A76E /* MTProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F477920240A8C3B00F1A76E /* MTProductListViewController.m */; };
@@ -118,7 +117,6 @@
 		6F47790F240A6CF300F1A76E /* MTSelectPhotoStyleCollectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTSelectPhotoStyleCollectView.m; sourceTree = "<group>"; };
 		6F477914240A821600F1A76E /* MTSelectPhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTSelectPhotoCell.h; sourceTree = "<group>"; };
 		6F477915240A821600F1A76E /* MTSelectPhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTSelectPhotoCell.m; sourceTree = "<group>"; };
-		6F477916240A821600F1A76E /* MTSelectPhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MTSelectPhotoCell.xib; sourceTree = "<group>"; };
 		6F47791A240A8BDF00F1A76E /* MTProductListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTProductListCell.h; sourceTree = "<group>"; };
 		6F47791B240A8BDF00F1A76E /* MTProductListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTProductListCell.m; sourceTree = "<group>"; };
 		6F47791C240A8BDF00F1A76E /* MTProductListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MTProductListCell.xib; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 				6F47790A240A6ACF00F1A76E /* MTSelectPhotoCollectView.m */,
 				6F477914240A821600F1A76E /* MTSelectPhotoCell.h */,
 				6F477915240A821600F1A76E /* MTSelectPhotoCell.m */,
-				6F477916240A821600F1A76E /* MTSelectPhotoCell.xib */,
 			);
 			path = MTSelectPhoto;
 			sourceTree = "<group>";
@@ -615,7 +612,6 @@
 			files = (
 				6F5850FA2407B4AF009EBCDC /* LaunchScreen.storyboard in Resources */,
 				6F652E45240CF7C300A37739 /* MTEditColorsCell.xib in Resources */,
-				6F477918240A821600F1A76E /* MTSelectPhotoCell.xib in Resources */,
 				6F47791E240A8BDF00F1A76E /* MTProductListCell.xib in Resources */,
 				6F5850F72407B4AF009EBCDC /* Assets.xcassets in Resources */,
 				6F51D5A3240A5045007DD359 /* photostyle.json in Resources */,

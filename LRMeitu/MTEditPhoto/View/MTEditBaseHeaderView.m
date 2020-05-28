@@ -16,7 +16,7 @@
 //        self.headView.backgroundColor = [UIColor redColor];
         [self addSubview:self.headView];
         UIButton *preBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [preBtn setTitle:@"預覽" forState:UIControlStateNormal];
+        [preBtn setTitle:@"预览" forState:UIControlStateNormal];
         [preBtn.titleLabel setFont:[UIFont mt_lightFontOfSize:14]];
         [preBtn setTitleColor:[UIColor mt_colorWithHexString:@"#6B6B6B"] forState:UIControlStateNormal];
         [preBtn addTarget:self action:@selector(preImage) forControlEvents:UIControlEventTouchUpInside];
@@ -27,6 +27,7 @@
         UIButton *upBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _upBtn = upBtn;
         [upBtn setImage:[UIImage imageNamed:@"mt_expand"] forState:UIControlStateNormal];
+         [upBtn setImage:[UIImage imageNamed:@"mt_expandup"] forState:UIControlStateSelected];
                [upBtn.titleLabel setFont:[UIFont mt_lightFontOfSize:14]];
                [upBtn setTitleColor:[UIColor mt_colorWithHexString:@"#6B6B6B"] forState:UIControlStateNormal];
         [upBtn addTarget:self action:@selector(expand_downView:) forControlEvents:UIControlEventTouchUpInside];

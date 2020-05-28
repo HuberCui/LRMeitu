@@ -21,6 +21,7 @@
 #import "MTKeyBoardView.h"
 #import "EmoticonsHelper.h"
 #import "MTProductListViewController.h"
+
 @interface MeituEditViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,CHTCollectionViewDelegateWaterfallLayout,MTEditEmotionViewDelegate,MTEditTextViewDelegate,MTEditEdgesViewDelegate,MTEditBorderViewDelegate,MTEditStyleSelectViewDelegate,MTEditBaseHeaderViewDelegate,MTProductListViewControllerDelegate>
 @property (nonatomic,strong) UICollectionView *collectionView;
 
@@ -49,7 +50,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"拼图";
+
+    self.navigationItem.title = @"分享";
     //    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
     _isClose = NO;
@@ -57,15 +59,32 @@
     _borderWidth = 0;
   
     
-    UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithTitle:@"保存"style:UIBarButtonItemStyleDone target:self action:@selector(save)];
-    self.navigationItem.rightBarButtonItem = btnItem;
+ 
+    __weak typeof(self) weakSelf = self;
+//    EasyNavigationButton *btn = [EasyNavigationButton buttonWithTitle:@"保存" image:nil];
+//    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+//    [btn addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, 50, 30)];
+    lab.text = @"保存";
+    lab.textColor = [UIColor redColor];
+//    [self.navigationView addRightView:lab clickCallback:^(UIView *view) {
+//
+//    }];
+//    [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"mt_cinch"] clickCallBack:^(UIView *view) {
+//        [weakSelf save];
+//    }];
+//    [self.navigationView addRightButtonWithTitle:@"保存" clickCallBack:^(UIView *view) {
+//
+//    }];
+  
     // Do any additional setup after loading the view.
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.scrollBottomView];
     
     
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.mas_equalTo(self.view);
+        make.left.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.view).offset(TopBarHeight);
         make.bottom.mas_equalTo(self.view).offset(-BottomHeight);
     }];
     
@@ -109,14 +128,14 @@
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.boardView);
     }];
-    
+     [self.boardView addSubview:self.edgesView];
     [self.boardView addSubview:self.stickerView];
-    [self.boardView addSubview:self.edgesView];
+   
     [self.view addSubview:self.keyBoardView];
     
     
   //  self.collectionView.backgroundColor = [UIColor cyanColor];
-    __weak typeof(self) weakSelf = self;
+   
     self.stickerView.tapEnded = ^(MTStickerItem * _Nonnull item, BOOL isActive) {
         
         if (isActive) { /** 选中的情况下点击 */
@@ -137,6 +156,16 @@
         make.edges.mas_equalTo(self.boardView);
     }];
     //
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+   
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+   
 }
 //把带有图片的属性字符串转成普通的字符串
 - (NSString *)textString:(NSAttributedString *)attributedText
@@ -177,7 +206,10 @@
 
 #pragma mark MTEditBaseHeaderViewDelegate
 -(void)previewEditPhoto{
-    UIGraphicsBeginImageContext(self.collectionView.bounds.size);
+    [MTStickerView LFStickerViewDeactivated];
+    
+   // UIGraphicsBeginImageContext(self.boardView.frame.size);
+    UIGraphicsBeginImageContextWithOptions(self.boardView.frame.size, YES, [UIScreen mainScreen].scale);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     [self.boardView.layer renderInContext:ctx];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -236,12 +268,28 @@
 -(void)addMoreProductPicture{
     MTProductListViewController *productvc = [[MTProductListViewController alloc]init];
     productvc.delegate = self;
+    productvc.fromboder_pro = FromProduct;
     [self.navigationController pushViewController:productvc animated:YES];
 }
 
 #pragma mark MTProductListViewControllerDelegate
-- (void)selectProductImage:(NSMutableArray *)selectProduct{
-    [self.styleSelectView.productArray addObjectsFromArray:selectProduct];
+- (void)selectProductImage:(NSMutableArray *)selectModelProduct SelectImage:(NSMutableArray *)selectImage{
+    [self.styleSelectView.productArray addObjectsFromArray:selectModelProduct];
+    if (selectModelProduct.count > 0 && selectImage.count > 0) {
+        [self addOneEmotionWithImage:selectImage.firstObject];
+    }
+    
+    [self.styleSelectView reloadCollectionData];
+}
+
+- (void)selectEdge:(NSMutableArray *)selectEdge{
+    [self.styleSelectView.edgesArray addObjectsFromArray:selectEdge];
+    if (selectEdge.count > 0) {
+         [self addEdgeWithImage:selectEdge.firstObject];
+    }else{
+         [self addEdgeWithImage:nil];
+    }
+   
     [self.styleSelectView reloadCollectionData];
 }
 
@@ -263,36 +311,49 @@
 - (void)addEdgeWithImage:(UIImage *)edgeImage{
     self.edgesView.edgeImage = edgeImage;
 }
+
+- (void)addMoreEdges{
+    MTProductListViewController *productvc = [[MTProductListViewController alloc]init];
+    productvc.delegate = self;
+     productvc.fromboder_pro = FromBoder;
+    [self.navigationController pushViewController:productvc animated:YES];
+}
 #pragma mark MTEditBorderViewDelegate
 
 -(void)addBorderWithSelectColor:(NSString *)color{
     _borderColor = color;
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
+    NSArray *array = [self.collectionView visibleCells];
+    for (MeutuEditCell *cell in array) {
+           cell.borderlayer.borderColor = [UIColor mt_colorWithHexString:_borderColor].CGColor;
+       }
+    
+    
 }
 -(void)changeBorderWidthWithValue:(float)value{
     _borderWidth = value;
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
+    NSArray *array = [self.collectionView visibleCells];
+    for (MeutuEditCell *cell in array) {
+       cell.borderlayer.borderWidth = _borderWidth;
+    }
 }
 
--(void)save{
+
+#pragma mark - savePhotoAlbumDelegate
+- (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *) contextInfo {
     
-    /**
-     将 UIView 转换成 UIImage
-     
-     @param view 将要转换的View
-     @return 新生成的 UIImage 对象
-     */
-    
-    
-    UIGraphicsBeginImageContext(self.collectionView.bounds.size);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    [self.boardView.layer renderInContext:ctx];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    MeituShowViewController *vc =[[MeituShowViewController alloc]init];
-    vc.showImage = newImage;
-    [self.navigationController pushViewController:vc animated:YES];
+    NSString *message;
+    NSString *title;
+    if (!error) {
+        title = @"保存成功";
+        message = @"成功保存到相册";
+    } else {
+        title = @"保存失败";
+        message = [error description];
+    }
+  
+   
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -308,8 +369,11 @@
     MeutuEditCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MeutuEditCell" forIndexPath:indexPath];
     UIImage *img = self.imageArray[indexPath.item];
     cell.showImage = img;
-    cell.mt_borderColor = [UIColor mt_colorWithHexString:_borderColor];
-    cell.mt_borderWidth = _borderWidth;
+    
+//    cell.borderlayer.borderColor = [UIColor mt_colorWithHexString:_borderColor].CGColor;
+//    cell.borderlayer.borderWidth = _borderWidth;
+//    cell.mt_borderColor = [UIColor mt_colorWithHexString:_borderColor];
+//    cell.mt_borderWidth = _borderWidth;
     
     //    cell.lab.textColor = [UIColor redColor];
     //    cell.lab.text = [NSString stringWithFormat:@"%ld",indexPath.item];

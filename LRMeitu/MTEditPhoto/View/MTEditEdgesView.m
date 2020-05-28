@@ -14,9 +14,10 @@
 <UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic,strong) UICollectionView *collectionView;
 
-@property (nonatomic,strong) NSMutableArray *imageArray;
+//@property (nonatomic,strong) NSMutableArray *imageArray;
 @end
 @implementation MTEditEdgesView
+@synthesize edgesArray= _edgesArray;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor mt_colorWithHexString:@"#FFFFFF"];
@@ -25,21 +26,23 @@
       //  moreBtn.backgroundColor = [UIColor yellowColor];
         [moreBtn setImage:[UIImage imageNamed:@"more_emotion"] forState:UIControlStateNormal];
         [moreBtn.titleLabel setFont:[UIFont mt_lightFontOfSize:10]];
-        [moreBtn setTitle:@"更多邊框" forState:UIControlStateNormal];
+        [moreBtn setTitle:@"更多边框" forState:UIControlStateNormal];
          [moreBtn setTitleColor:[UIColor mt_colorWithHexString:@"#1F1F1F"] forState:UIControlStateNormal];
+        [moreBtn addTarget:self action:@selector(moreEdge) forControlEvents:UIControlEventTouchUpInside];
         [self.downView addSubview:moreBtn];
+        
         [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.downView);
             make.left.mas_equalTo(self.downView).offset(15);
             make.width.mas_equalTo(51);
         }];
-        for (int i = 1; i<=6; i++) {
-            UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"border%d",i]];
-          
-//            model.isSelect = NO;
-//            model.img = img;
-            [self.imageArray addObject:img];
-        }
+//        for (int i = 1; i<=6; i++) {
+//            UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"border%d",i]];
+//
+////            model.isSelect = NO;
+////            model.img = img;
+//            [self.imageArray addObject:img];
+//        }
         
         UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc]init];
         flowlayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -70,28 +73,48 @@
     }
     return self;
 }
+
+-(void)setEdgesArray:(NSMutableArray *)edgesArray{
+    _edgesArray = edgesArray;
+    [self.collectionView reloadData];
+}
+- (NSMutableArray *)edgesArray{
+    return _edgesArray;
+}
+-(void)moreEdge{
+    if (self.edgesViewDelegate && [self.edgesViewDelegate respondsToSelector:@selector(addMoreEdges)]) {
+        [self.edgesViewDelegate addMoreEdges];
+    }
+}
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.imageArray.count;
+    return self.edgesArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     MTEditEdgesViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MTEditEdgesViewCell" forIndexPath:indexPath];
-    UIImage *image = self.imageArray[indexPath.item];
+    UIImage *image = self.edgesArray[indexPath.item];
     cell.edgeImageView.image = image;
     return cell;
     
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-     UIImage *image = self.imageArray[indexPath.item];
+     UIImage *image = self.edgesArray[indexPath.item];
+    
+    
     if (self.edgesViewDelegate && [self.edgesViewDelegate respondsToSelector:@selector(addEdgeWithImage:)]) {
-        [self.edgesViewDelegate addEdgeWithImage:image];
+        if (indexPath.item == 0) {
+             [self.edgesViewDelegate addEdgeWithImage:nil];
+        }else{
+             [self.edgesViewDelegate addEdgeWithImage:image];
+        }
+       
     }
 }
 
@@ -103,10 +126,5 @@
 //}
 
 
--(NSMutableArray *)imageArray{
-    if (_imageArray == nil) {
-        _imageArray = [NSMutableArray array];
-    }
-    return _imageArray;
-}
+
 @end

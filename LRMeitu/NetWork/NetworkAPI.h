@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define BaseUrl @"http://60.250.137.141/CinchAPP/"
+#define BaseUrl @"http://"
 typedef NS_ENUM(NSUInteger, NetworkParametersType) {
     NetworkParametersTypeDefault,
     NetworkParametersTypeNormal,

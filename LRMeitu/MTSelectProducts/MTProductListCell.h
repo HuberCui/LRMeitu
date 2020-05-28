@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *productSelectView;
 @property (nonatomic,strong) MTProductListModel *listModel;
+
+@property (nonatomic,assign) FromBoderOrPro fromborder_pro;
 @end
 
 NS_ASSUME_NONNULL_END

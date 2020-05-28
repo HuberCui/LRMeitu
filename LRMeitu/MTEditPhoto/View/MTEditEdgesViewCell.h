@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MTProductListModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MTEditEdgesViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *edgeImageView;
-@property (nonatomic,strong) MTProductListModel *productModel;
+
 @end
 
 NS_ASSUME_NONNULL_END

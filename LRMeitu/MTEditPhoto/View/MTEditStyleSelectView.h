@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isClose;
 
 @property (nonatomic,strong) NSMutableArray *productArray;
-
+@property (nonatomic,strong) NSMutableArray *edgesArray;
 -(void)reloadCollectionData;
 @end
 

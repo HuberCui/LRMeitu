@@ -16,7 +16,7 @@
 #import "MTEditBaseHeaderView.h"
 #import <MJExtension/MJExtension.h>
 #import "MTEditColorModel.h"
-#import "MTAPI.h"
+#import "MTProductListModel.h"
 @interface MTEditStyleSelectView ()<UICollectionViewDataSource,UICollectionViewDelegate,CHTCollectionViewDelegateWaterfallLayout>
 @property (nonatomic,strong) UICollectionView *collectionView;
 
@@ -25,6 +25,7 @@
 @property (nonatomic,assign) NSInteger selectItemIndex;
 
 @property (nonatomic,weak) id headerDelegate;
+
 @end
 @implementation MTEditStyleSelectView
 
@@ -33,8 +34,14 @@
         self.backgroundColor = [UIColor whiteColor];
         _selectItemIndex = 0;
         _headerDelegate = delegate;
-       //  [self jsonColor];
-        [self getColorsData];
+         [self jsonColor];
+      
+        [self configProduct];
+        for (int i = 0; i<=9; i++) {
+            UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"border%d",i]];
+            [self.edgesArray addObject:img];
+        }
+
         for (int i = 0; i<4; i++) {
             MTEditStyleSelectModel *model = [MTEditStyleSelectModel new];
             model.editStyle = i;
@@ -69,15 +76,18 @@
     }
     return self;
 }
--(void)getColorsData{
-    [[MTAPI GET_Colors:@"173"] completion:^(NetworkAPI * _Nonnull API) {
-        if (API.isRequestSuccess) {
-             self.colorArray = [MTEditColorModel mj_objectArrayWithKeyValuesArray:API.response.data];
-            [self.collectionView reloadData];
-        }
-       
-    }];
+-(void)configProduct{
+          for (int i = 0; i<10; i++) {
+                UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"chanpin%d",i]];
+                MTProductListModel *model = [MTProductListModel new];
+                model.isSelect = NO;
+                model.showImage = img;
+                [self.productArray addObject:model];
+            }
+     [self.collectionView reloadData];
 }
+
+
 -(void)jsonColor{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"bordercolors" ofType:@"json"]; // 解析json
       NSData *data = [NSData dataWithContentsOfFile:path];
@@ -130,6 +140,7 @@
             case 2:
                 reuseablebiew=[collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"MTEditEdgesView" forIndexPath:indexPath];
                 reuseablebiew.edgesViewDelegate = _headerDelegate;
+                reuseablebiew.edgesArray = self.edgesArray;
                 break;
             case 3:
                 reuseablebiew=[collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"MTEditBorderView" forIndexPath:indexPath];
@@ -205,5 +216,11 @@
         _productArray = [NSMutableArray array];
     }
     return _productArray;
+}
+- (NSMutableArray *)edgesArray{
+    if (_edgesArray == nil) {
+        _edgesArray = [NSMutableArray array];
+    }
+    return _edgesArray;
 }
 @end

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property (strong, nonatomic)  UILabel *lab;
 @property (nonatomic,strong) UIImage *showImage;
+@property (nonatomic,strong) CALayer *borderlayer;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -10,6 +10,10 @@
 #define MTEnum_h
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "UIFont+MTFont.h"
+#import "UIColor+MTColor.h"
+#import "UIView+MTView.h"
+#import <Masonry.h>
 typedef NS_ENUM (NSUInteger,MTGridStyle){
     MTGridOne,
     MTGridLOneROne,
@@ -24,5 +28,9 @@ typedef NS_ENUM (NSUInteger,MTEditStyle){
     MTEditTextStyle,//文字
     MTEditEdgesStyle,//边框
     MTEditBoderStyle//轮廓
+};
+typedef NS_ENUM(NSInteger,FromBoderOrPro) {
+    FromBoder,
+    FromProduct
 };
 #endif /* MTEnum_h */

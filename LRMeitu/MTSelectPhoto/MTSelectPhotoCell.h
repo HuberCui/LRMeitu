@@ -16,9 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 @interface MTSelectPhotoCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *bottomImageView;
-@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+@property (strong, nonatomic)  UIImage *showImage;
 @property (weak, nonatomic) id<UICollectionViewCellDegate>delegate;
+@property (nonatomic,strong) UIScrollView *scrollView;
+@property (nonatomic,strong) UIImageView *selectImageView;
+@property (nonatomic,strong) UIButton *deleteBtn;
 @end
 
 NS_ASSUME_NONNULL_END

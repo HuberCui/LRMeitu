@@ -21,14 +21,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"分享";
     UILabel *stepOne = [UILabel new];
     stepOne.textAlignment = NSTextAlignmentLeft;
-    stepOne.text = @"STEP1 選擇拼貼模式";
+    stepOne.text = @"STEP1 选择拼贴模式";
     stepOne.font = [UIFont mt_lightFontOfSize:14];
     [self.view addSubview:stepOne];
     [stepOne mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(16);
-        make.top.mas_equalTo(self.view).offset(21);
+        make.top.mas_equalTo(self.view).offset(21+TopBarHeight);
     }];
     MTSelectPhotoStyleCollectView *styleView = [[MTSelectPhotoStyleCollectView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 41) styleArray:self.styleArray styleModel:self.styleModel];
     styleView.delegate = self;
@@ -40,7 +41,7 @@
     }];
     UILabel *stepTwo = [UILabel new];
        stepTwo.textAlignment = NSTextAlignmentLeft;
-       stepTwo.text = @"STEP2 選擇照片";
+       stepTwo.text = @"STEP2 选择照片";
        stepTwo.font = [UIFont mt_lightFontOfSize:14];
        [self.view addSubview:stepTwo];
     [stepTwo mas_makeConstraints:^(MASConstraintMaker *make) {

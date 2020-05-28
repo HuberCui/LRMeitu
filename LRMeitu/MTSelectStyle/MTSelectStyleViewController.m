@@ -28,7 +28,7 @@
     
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"爱分享";
+    self.title = @"分享";
     
     
     [self jsonStyle];
@@ -39,7 +39,7 @@
     [self.view addSubview:titleLab];
     
     UILabel *tipLab = [UILabel new];
-    tipLab.text = @"選擇拼貼模式";
+    tipLab.text = @"选择拼贴模式";
     tipLab.font = [UIFont mt_fontOfSize:14];
     [self.view addSubview:tipLab];
     

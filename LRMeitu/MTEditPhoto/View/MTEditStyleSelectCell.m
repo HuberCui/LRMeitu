@@ -44,7 +44,7 @@
         switch (styleModel.editStyle) {
             case MTEditEmotionStyle:
                 self.imageView.image = self.selected ? [UIImage imageNamed:@"emotion_selected"] : [UIImage imageNamed:@"emotion_unselect"];
-                self.lab.text = @"產品圖";
+                self.lab.text = @"产品图";
                 break;
             case MTEditTextStyle:
                 self.imageView.image = self.selected ? [UIImage imageNamed:@"text_selected"] :[UIImage imageNamed:@"text_unselect"];
@@ -52,11 +52,11 @@
                 break;
             case MTEditEdgesStyle:
                 self.imageView.image = self.selected ? [UIImage imageNamed:@"edges_selected"] :[UIImage imageNamed:@"edge_unselect"];
-                self.lab.text = @"邊框";
+                self.lab.text = @"边框";
                 break;
             case MTEditBoderStyle:
                 self.imageView.image = self.selected ? [UIImage imageNamed:@"border_selected"] :[UIImage imageNamed:@"border_unselect"];
-                self.lab.text = @"輪廓";
+                self.lab.text = @"轮廓";
                 break;
             default:
                 break;

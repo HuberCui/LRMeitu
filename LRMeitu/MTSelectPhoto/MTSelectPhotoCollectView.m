@@ -38,13 +38,13 @@
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         
-        [_collectionView registerNib:[UINib nibWithNibName:@"MTSelectPhotoCell" bundle:nil] forCellWithReuseIdentifier:@"MTSelectPhotoCell"];
         
+        [_collectionView registerClass:[MTSelectPhotoCell class] forCellWithReuseIdentifier:@"MTSelectPhotoCell"];
         [self addSubview:_collectionView];
         
         _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        [_sureBtn setTitle:@"開始拼贴" forState:UIControlStateNormal];
+        [_sureBtn setTitle:@"开始拼贴" forState:UIControlStateNormal];
         [_sureBtn addTarget:self action:@selector(startCinch) forControlEvents:UIControlEventTouchUpInside];
         _sureBtn.enabled = [self checkSureBtnCanUse];
         [self addSubview:_sureBtn];
@@ -114,12 +114,16 @@
     cell.delegate = self;
     cell.deleteBtn.tag = indexPath.item;
     if (indexPath.item == self.selectImageArray.count) {
-        cell.bottomImageView.image = [UIImage imageNamed:@"selectPhoto"];
+       
         cell.deleteBtn.hidden = YES;
+        cell.selectImageView.hidden = NO;
+        cell.scrollView.hidden = YES;
         
     }else{
-        cell.bottomImageView.image = self.selectImageArray[indexPath.item];
+        cell.showImage = self.selectImageArray[indexPath.item];
         cell.deleteBtn.hidden = NO;
+        cell.selectImageView.hidden = YES;
+        cell.scrollView.hidden = NO;
     }
     
     return cell;

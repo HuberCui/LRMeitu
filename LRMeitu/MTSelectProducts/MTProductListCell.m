@@ -17,8 +17,15 @@
 }
 -(void)setListModel:(MTProductListModel *)listModel{
     _listModel = listModel;
-     NSURL *imgurl = [NSURL URLWithString:[NSString stringWithFormat:@"http://60.250.137.141/CinchAPP/%@",listModel.prodimg]];
-    [self.productImageView sd_setImageWithURL:imgurl];
+     self.productImageView.image = listModel.showImage;
+//    if (self.fromborder_pro == FromBoder) {
+//
+//    }else{
+//
+//        NSURL *imgurl = [NSURL URLWithString:listModel.prodimg];//IMAGE_URL(listModel.prodimg);
+//           [self.productImageView sd_setImageWithURL:imgurl];
+//    }
+    
 //    if (listModel.isSelect) {
 //            self.productSelectView.hidden = NO;
 //        }else{
